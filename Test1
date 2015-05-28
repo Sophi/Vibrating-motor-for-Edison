@@ -1,0 +1,68 @@
+#include "mraa.hpp"
+#include <iostream>
+#include <unistd.h>
+
+/*
+ * Digital output example
+ *
+ * Demonstrate how to write a digital value to an output pin using the MRAA
+ * library.
+ * A suitable part to use this example with in the Grove Starter Kit is the LED.
+ *
+ * - digital out: output connected to digital pin 8 (Grove Base Shield Port D8)
+ *
+ * Additional linker flags: none
+ */
+
+int main()
+{
+	// check that we are running on Edison
+	mraa_platform_t platform = mraa_get_platform_type();
+	if((platform != MRAA_INTEL_GALILEO_GEN1) &&
+			(platform != MRAA_INTEL_GALILEO_GEN2) &&
+			(platform != MRAA_INTEL_EDISON_FAB_C)) {
+		std::cerr << "Unsupported platform, exiting" << std::endl;
+		return MRAA_ERROR_INVALID_PLATFORM;
+	}
+
+	// create a gpio object from MRAA LIBRARY
+	/*  GPIO 44 = MRAA 31
+		GPIO 45 = MRAA 45
+		GPIO 46 = MRAA 32
+		GPIO 47 = MRAA 46
+	*/
+	mraa::Gpio* Buzz1 = new mraa::Gpio(31);
+	mraa::Gpio* Buzz2 = new mraa::Gpio(45);
+	mraa::Gpio* Buzz3 = new mraa::Gpio(32);
+	mraa::Gpio* Buzz4 = new mraa::Gpio(46);
+
+	// set the pin as output
+		if(Buzz1->dir (mraa::DIR_OUT) != MRAA_SUCCESS) {
+		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
+		return MRAA_ERROR_UNSPECIFIED;
+		}
+		if(Buzz2->dir (mraa::DIR_OUT) != MRAA_SUCCESS) {
+		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
+		return MRAA_ERROR_UNSPECIFIED;
+		}
+		if(Buzz3->dir (mraa::DIR_OUT) != MRAA_SUCCESS) {
+		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
+		return MRAA_ERROR_UNSPECIFIED;
+		}
+		if(Buzz4->dir (mraa::DIR_OUT) != MRAA_SUCCESS) {
+		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
+		return MRAA_ERROR_UNSPECIFIED;
+		}
+
+	// loop forever toggling the digital output every second
+		for(;;) {
+			//std::cout<<"hello Sophi! ";
+		Buzz1->write(1);
+		//Buzz2->write(1);
+		//Buzz3->write(1);
+		//Buzz4->write(1);
+		//sleep(5);
+			}
+
+	return MRAA_SUCCESS;
+}
